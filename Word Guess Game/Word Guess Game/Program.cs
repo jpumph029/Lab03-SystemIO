@@ -8,12 +8,88 @@ namespace Word_Guess_Game
         static void Main(string[] args)
         {
             string path = "../../../testFile.txt";
-            //DeleteFile(path);
             CreateFile(path);
-            //AppendToFile(path);
-            ReadFile(path);
+            UserInterface(path);    
+            //DeleteFile(path);
+            //ReadFile(path);
+            //SplitWords();
             Console.Read();
-            Console.WriteLine("Hello World!");
+            
+        }
+        static void UserInterface(string path)
+        {
+            Console.WriteLine(@"
+
+    (0) Play Guessing Game
+    (1) Add new word
+    (2) View words
+    (3) Delete ALL WORDS
+    (4) Exit
+
+                               ");
+            try
+            {
+                int menuInput = Convert.ToInt32(Console.ReadLine());
+                MenuOptions(menuInput, path);
+            }
+            catch (Exception)
+            {
+                Console.Write("Invalid input. Try again.\nPress Enter to Continue . . .");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            finally
+            {
+                UserInterface(path);
+            }
+
+        }
+        public static void MenuOptions(int menuInput, string path)
+        {
+            switch (menuInput)
+            {
+                case 0:
+                    //PlayGame
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case 1:
+                    //AddNewWord
+                    Console.Write("Please Type a word you would like to add: ");
+                    string userInput = Console.ReadLine();
+                    
+                    AppendToFile(path, userInput);
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case 2:
+                    //ViewWords
+                    ReadFile(path);
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case 3:
+                    //DeleteWords
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                case 4:
+                    //Exit
+                    ExitProgram();
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Try again.\nPress Enter to Continue . . .");
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+            }
+        }
+ 
+        static void ExitProgram()
+        {
+            Environment.Exit(0);
         }
         static void CreateFile(string path)
         {
@@ -24,7 +100,7 @@ namespace Word_Guess_Game
                     try
                     {
                         //the text made with the file
-                        streamWriter.WriteLine("This is a test. Hello File");
+                        streamWriter.WriteLine("123 123 123 123 --test");
                     }
                     catch (Exception)
                     {
@@ -59,7 +135,9 @@ namespace Word_Guess_Game
                 for (int i = 0; i < lines.Length; i++)
                 {
                     Console.WriteLine(lines[i]);
+                   
                 }
+                Console.WriteLine("\nPress any key to continue . . .");
             }
             catch (Exception)
             {
@@ -67,20 +145,21 @@ namespace Word_Guess_Game
                 throw;
             }
         }
-        static void AppendToFile(string path)
+        static void AppendToFile(string path, string userInput)
         {
             try
             {
                 using (StreamWriter streamWriter = File.AppendText(path))
                 {
-                    streamWriter.WriteLine("This is text appened from AppendToFileMethod");
+                    streamWriter.WriteLine(userInput);
+                    Console.WriteLine("Word added\nPress any key to continue . . .");
                 }
             }
             catch (Exception)
             {
                 throw;
             }
-        }
+        }   
         static void DeleteFile(string path)
         {
             try
@@ -90,6 +169,16 @@ namespace Word_Guess_Game
             catch (Exception)
             {
                 throw;
+            }
+        }
+        static void SplitWords()
+        {
+            char[] splitHere = {' ', ',', '.', ':', '\t'};
+            string testSplit = "one two:three.four,five";
+            string[] splitWords = testSplit.Split(splitHere);
+            foreach(string word in splitWords)
+            {
+                Console.WriteLine(word);
             }
         }
     }
