@@ -25,6 +25,11 @@ namespace Word_Guess_Game
             Console.Read();
             
         }
+
+        /// <summary>
+        /// Allows the user to see the UserInterface and select an option from the MenuOptions method.
+        /// </summary>
+        /// <param name="path">Text file path</param>
         static void UserInterface(string path)
         {
             Console.WriteLine(@"
@@ -53,12 +58,19 @@ namespace Word_Guess_Game
             }
 
         }
+
+        /// <summary>
+        /// Menu Option to run the selected option's methods.
+        /// </summary>
+        /// <param name="menuInput">User input from UserInterface</param>
+        /// <param name="path">File Path</param>
         public static void MenuOptions(int menuInput, string path)
         {
             switch (menuInput)
             {
                 case 0:
                     //PlayGame
+                    GetRandomWord(path);
                     Console.ReadKey();
                     Console.Clear();
                     break;
@@ -97,10 +109,18 @@ namespace Word_Guess_Game
             }
         }
  
+        /// <summary>
+        /// Exit the program.
+        /// </summary>
         static void ExitProgram()
         {
             Environment.Exit(0);
         }
+
+        /// <summary>
+        /// Makes a file with dog, cat and cow on new lines
+        /// </summary>
+        /// <param name="path">File path</param>
         static void CreateFile(string path)
         {
             try
@@ -110,7 +130,9 @@ namespace Word_Guess_Game
                     try
                     {
                         //the text made with the file
-                        streamWriter.WriteLine("123 123 123 123 --test");
+                        streamWriter.WriteLine("dog");
+                        streamWriter.WriteLine("cat");
+                        streamWriter.WriteLine("cow");
                     }
                     catch (Exception)
                     {
@@ -137,6 +159,11 @@ namespace Word_Guess_Game
                 throw;
             }
         }
+
+        /// <summary>
+        /// Reads a file from path
+        /// </summary>
+        /// <param name="path">File path</param>
         static void ReadFile(string path)
         {
             try
@@ -155,6 +182,12 @@ namespace Word_Guess_Game
                 throw;
             }
         }
+
+        /// <summary>
+        /// Appends the userInput to the path
+        /// </summary>
+        /// <param name="path">File path</param>
+        /// <param name="userInput">New String to add to file</param>
         static void AppendToFile(string path, string userInput)
         {
             try
@@ -170,6 +203,11 @@ namespace Word_Guess_Game
                 throw;
             }
         }   
+
+        /// <summary>
+        /// Currently removed the file from path
+        /// </summary>
+        /// <param name="path">File path</param>
         static void DeleteFile(string path)
         {
             try
@@ -181,6 +219,10 @@ namespace Word_Guess_Game
                 throw;
             }
         }
+
+        /// <summary>
+        /// Splits a string at splitHere charchater
+        /// </summary>
         static void SplitWords()
         {
             char[] splitHere = {' ', ',', '.', ':', '\t'};
@@ -191,5 +233,32 @@ namespace Word_Guess_Game
                 Console.WriteLine(word);
             }
         }
+
+        public static void Play(string path)
+        {
+
+        }
+
+        /// <summary>
+        /// Retrieves a random word
+        /// </summary>
+        /// <param name="path">File path</param>
+        /// <returns></returns>
+        public static string GetRandomWord(string path)
+        {
+            try
+            {
+                string[] file = File.ReadAllLines(path);
+                Random answer = new Random();
+                int i = answer.Next(file.Length);
+                Console.WriteLine(file[i]);
+                return file[i];
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }   
+        }
+
     }
 }
