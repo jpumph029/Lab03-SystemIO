@@ -246,18 +246,11 @@ namespace Word_Guess_Game
         /// <returns></returns>
         public static string GetRandomWord(string path)
         {
-            try
-            {
                 string[] file = File.ReadAllLines(path);
                 Random answer = new Random();
                 int i = answer.Next(file.Length);
                 Console.WriteLine(file[i]);
                 return file[i];
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }   
         }
 
     }
