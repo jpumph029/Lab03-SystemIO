@@ -70,7 +70,7 @@ namespace Word_Guess_Game
             {
                 case 0:
                     //PlayGame
-                    GetRandomWord(path);
+                    Play(path);
                     Console.ReadKey();
                     Console.Clear();
                     break;
@@ -234,9 +234,34 @@ namespace Word_Guess_Game
             }
         }
 
+        /// <summary>
+        /// Game Logic
+        /// </summary>
+        /// <param name="path">File Path</param>
         public static void Play(string path)
         {
+            string answer = GetRandomWord(path);
+            WordDisplayAsHidden(answer);
 
+        }
+        /// <summary>
+        /// Displays the answer as a hidden word
+        /// </summary>
+        /// <param name="answer">String to display hidden</param>
+        /// <returns></returns>
+        public static string WordDisplayAsHidden(string answer)
+        {
+            string[] hiddenAnswer = new string[answer.Length];
+            Console.WriteLine("");
+            for (int i = 0; i < answer.Length; i++)
+            {
+                hiddenAnswer[i] = "_ ";
+            }
+            foreach (var item in hiddenAnswer)
+            {
+                Console.Write(item);
+            }
+                return hiddenAnswer[1];
         }
 
         /// <summary>
@@ -247,9 +272,8 @@ namespace Word_Guess_Game
         public static string GetRandomWord(string path)
         {
                 string[] file = File.ReadAllLines(path);
-                Random answer = new Random();
-                int i = answer.Next(file.Length);
-                Console.WriteLine(file[i]);
+                Random word = new Random();
+                int i = word.Next(file.Length);
                 return file[i];
         }
 
