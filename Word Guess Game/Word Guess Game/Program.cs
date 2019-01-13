@@ -7,9 +7,18 @@ namespace Word_Guess_Game
     {
         static void Main(string[] args)
         {
+
             string path = "../../../testFile.txt";
-            CreateFile(path);
-            UserInterface(path);    
+            if (File.Exists(path))
+            {
+                UserInterface(path);
+            }
+            else
+            {
+                CreateFile(path);
+                UserInterface(path);
+            }
+    
             //DeleteFile(path);
             //ReadFile(path);
             //SplitWords();
@@ -70,6 +79,7 @@ namespace Word_Guess_Game
                     break;
                 case 3:
                     //DeleteWords
+                    DeleteFile(path);
                     Console.ReadKey();
                     Console.Clear();
                     break;
