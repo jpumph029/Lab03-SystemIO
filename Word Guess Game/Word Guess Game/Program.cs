@@ -262,7 +262,7 @@ namespace Word_Guess_Game
         /// <param name="guess"></param>
         /// <param name="hiddenAnswer"></param>
         /// <param name="correctGuess"></param>
-        public static void CheckForWinners(string path, string answer, string guess, string[] hiddenAnswer, string correctGuess)
+        public static string CheckForWinners(string path, string answer, string guess, string[] hiddenAnswer, string correctGuess)
         {
             if (guess != null && (answer.ToUpper().Contains(guess.ToUpper()) && !correctGuess.Contains(answer)))
             {
@@ -274,7 +274,7 @@ namespace Word_Guess_Game
                         hiddenAnswer[i] = guess;
                         correctGuess += guess;
                     }
-                    Console.Write(hiddenAnswer[i]);   
+                    Console.Write(hiddenAnswer[i]); 
                 }
             }
             if (!hiddenAnswer.Contains(" _ "))
@@ -287,6 +287,7 @@ namespace Word_Guess_Game
                 UserInterface(path);
                 
             }
+            return guess;
         }
 
         /// <summary>

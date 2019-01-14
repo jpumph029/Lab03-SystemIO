@@ -36,5 +36,15 @@ namespace Word_Guess_Game_Tests
             //assert
             Assert.True(Program.ReadFile(path));
         }
+        [Fact]
+        public void CanDetectGuess()
+        {
+            //arrange
+            string answer = "cat";
+            string guess = "c";
+
+            //assert
+            Assert.Contains("c", answer);
+        }
     }
 }
