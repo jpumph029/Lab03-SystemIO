@@ -44,7 +44,7 @@ namespace Word_Guess_Game_Tests
             string guess = "c";
 
             //assert
-            Assert.Contains("c", answer);
+            Assert.Contains(guess, answer);
         }
     }
 }
