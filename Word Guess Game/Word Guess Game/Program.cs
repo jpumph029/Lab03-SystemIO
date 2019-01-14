@@ -8,7 +8,7 @@ namespace Word_Guess_Game
     {
         static void Main(string[] args)
         {
-            string path = "../../../testFile.txt";
+            string path = "../../../words.txt";
             if (File.Exists(path))
             {
                 UserInterface(path);
