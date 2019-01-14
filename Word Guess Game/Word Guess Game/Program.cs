@@ -165,7 +165,7 @@ namespace Word_Guess_Game
         /// Reads a file from path
         /// </summary>
         /// <param name="path">File path</param>
-        static void ReadFile(string path)
+        public static bool ReadFile(string path)
         {
             try
             {
@@ -178,9 +178,9 @@ namespace Word_Guess_Game
             }
             catch (Exception)
             {
-
                 throw;
             }
+            return true;
         }
 
         /// <summary>

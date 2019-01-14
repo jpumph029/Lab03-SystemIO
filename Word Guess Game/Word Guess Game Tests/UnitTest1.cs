@@ -13,8 +13,7 @@ namespace Word_Guess_Game_Tests
         {
             //arange
             string path = "../../../testFile.txt";
-            //act
-           
+
             //assert
             Assert.True(Program.CreateFile(path));
             
@@ -25,10 +24,17 @@ namespace Word_Guess_Game_Tests
             //arange
             string path = "../../../testFile.txt";
             string input = "tests";
-            //act
-            string word = Program.AppendToFile(path, input);
+      
             //assert
-            Assert.Equal("tests", word);
+            Assert.Equal("tests", Program.AppendToFile(path, input));
+        }
+        [Fact]
+        public void CanReadFile()
+        {
+            //arrane
+            string path = "../../../testFile.txt";
+            //assert
+            Assert.True(Program.ReadFile(path));
         }
     }
 }
