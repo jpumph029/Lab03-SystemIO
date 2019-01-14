@@ -124,7 +124,7 @@ namespace Word_Guess_Game
         /// Makes a file with dog, cat and cow on new lines
         /// </summary>
         /// <param name="path">File path</param>
-        static void CreateFile(string path)
+        public static bool CreateFile(string path)
         {
             try
             {
@@ -141,6 +141,7 @@ namespace Word_Guess_Game
                     {
                         throw;
                     }
+                    return true;
                 }
             }
             catch (IOException e)

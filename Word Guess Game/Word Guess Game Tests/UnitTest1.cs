@@ -9,6 +9,17 @@ namespace Word_Guess_Game_Tests
     public class UnitTest1
     {
         [Fact]
+        public void CanCreateFile()
+        {
+            //arange
+            string path = "../../../testFile.txt";
+            //act
+           
+            //assert
+            Assert.True(Program.CreateFile(path));
+            
+        }
+        [Fact]
         public void CanAppendToFile()
         {
             //arange
