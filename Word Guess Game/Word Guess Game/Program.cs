@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace Word_Guess_Game
 {
@@ -18,14 +19,16 @@ namespace Word_Guess_Game
                 CreateFile(path);
                 UserInterface(path);
             }
-    
-            //DeleteFile(path);
-            //ReadFile(path);
-            //SplitWords();
-            Console.Read();
-            
+            Console.Read(); 
         }
-
+        /// <summary>
+        /// winner var
+        /// </summary>
+        public static bool winner = false;
+        /// <summary>
+        /// incorrect guess var
+        /// </summary>
+        public static string incorrectGuess = "";
         /// <summary>
         /// Allows the user to see the UserInterface and select an option from the MenuOptions method.
         /// </summary>
@@ -70,6 +73,8 @@ namespace Word_Guess_Game
             {
                 case 0:
                     //PlayGame
+                    Program.winner = false;
+                    Program.incorrectGuess = "";
                     Play(path);
                     Console.ReadKey();
                     Console.Clear();
@@ -213,24 +218,11 @@ namespace Word_Guess_Game
             try
             {
                 File.Delete(path);
+                Console.WriteLine("Words Have been deleted.\nPress any key to continue . . .");
             }
             catch (Exception)
             {
                 throw;
-            }
-        }
-
-        /// <summary>
-        /// Splits a string at splitHere charchater
-        /// </summary>
-        static void SplitWords()
-        {
-            char[] splitHere = {' ', ',', '.', ':', '\t'};
-            string testSplit = "one two:three.four,five";
-            string[] splitWords = testSplit.Split(splitHere);
-            foreach(string word in splitWords)
-            {
-                Console.WriteLine(word);
             }
         }
 
@@ -241,27 +233,64 @@ namespace Word_Guess_Game
         public static void Play(string path)
         {
             string answer = GetRandomWord(path);
-            WordDisplayAsHidden(answer);
+            string[] hiddenAnswer = new string[answer.Length];
+            string correctGuess = "";
+            Console.Clear();
 
+                for (int i = 0; i < answer.Length; i++)
+                {
+                    hiddenAnswer[i] = " _ ";
+                }
+                foreach (string j in hiddenAnswer)
+                {
+                    Console.Write(j);
+                }
+ 
+            while (Program.winner == false)
+            {
+                Console.Write("Guess a letter: ");
+                string guess = Console.ReadLine();
+                CheckForWinners(path, answer, guess, hiddenAnswer, correctGuess);
+                if (!answer.ToUpper().Contains(guess.ToUpper()) && guess != " " && guess != "")
+                {
+                    Program.incorrectGuess += guess;
+                    Console.WriteLine($"Incorrect letters: {Program.incorrectGuess}\n");
+                }
+            }
         }
         /// <summary>
-        /// Displays the answer as a hidden word
+        /// replaces _ char once there are no _ say that you won
         /// </summary>
-        /// <param name="answer">String to display hidden</param>
-        /// <returns></returns>
-        public static string WordDisplayAsHidden(string answer)
+        /// <param name="path"></param>
+        /// <param name="answer"></param>
+        /// <param name="guess"></param>
+        /// <param name="hiddenAnswer"></param>
+        /// <param name="correctGuess"></param>
+        public static void CheckForWinners(string path, string answer, string guess, string[] hiddenAnswer, string correctGuess)
         {
-            string[] hiddenAnswer = new string[answer.Length];
-            Console.WriteLine("");
-            for (int i = 0; i < answer.Length; i++)
+            if (guess != null && (answer.ToUpper().Contains(guess.ToUpper()) && !correctGuess.Contains(answer)))
             {
-                hiddenAnswer[i] = "_ ";
+                Console.WriteLine("");
+                for (int i = 0; i < answer.Length; i++)
+                {
+                    if (answer[i].ToString() == guess)
+                    {
+                        hiddenAnswer[i] = guess;
+                        correctGuess += guess;
+                    }
+                    Console.Write(hiddenAnswer[i]);   
+                }
             }
-            foreach (var item in hiddenAnswer)
+            if (!hiddenAnswer.Contains(" _ "))
             {
-                Console.Write(item);
+                Console.WriteLine("");
+                Console.WriteLine($"Congrats! you guess the word {answer}\n Press any key to exit . . .");
+                Program.winner = true;
+                Console.ReadKey();
+                Console.Clear();
+                UserInterface(path);
+                
             }
-                return hiddenAnswer[1];
         }
 
         /// <summary>
@@ -276,6 +305,5 @@ namespace Word_Guess_Game
                 int i = word.Next(file.Length);
                 return file[i];
         }
-
     }
 }
