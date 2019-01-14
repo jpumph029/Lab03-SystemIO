@@ -4,11 +4,10 @@ using System.Linq;
 
 namespace Word_Guess_Game
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-
             string path = "../../../testFile.txt";
             if (File.Exists(path))
             {
@@ -59,7 +58,6 @@ namespace Word_Guess_Game
             {
                 UserInterface(path);
             }
-
         }
 
         /// <summary>
@@ -147,19 +145,16 @@ namespace Word_Guess_Game
             }
             catch (IOException e)
             {
-
                 Console.Write(e);
                 throw;
             }
             catch (NotSupportedException e)
             {
-
                 Console.Write(e);
                 throw;
             }
             catch (Exception e)
             {
-
                 Console.Write(e);
                 throw;
             }
@@ -176,8 +171,7 @@ namespace Word_Guess_Game
                 string[] lines = File.ReadAllLines(path);
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    Console.WriteLine(lines[i]);
-                   
+                    Console.WriteLine(lines[i]);  
                 }
                 Console.WriteLine("\nPress any key to continue . . .");
             }
@@ -193,7 +187,7 @@ namespace Word_Guess_Game
         /// </summary>
         /// <param name="path">File path</param>
         /// <param name="userInput">New String to add to file</param>
-        static void AppendToFile(string path, string userInput)
+        public static string AppendToFile(string path, string userInput)
         {
             try
             {
@@ -207,6 +201,7 @@ namespace Word_Guess_Game
             {
                 throw;
             }
+            return userInput;
         }   
 
         /// <summary>
